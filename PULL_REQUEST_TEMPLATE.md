@@ -12,9 +12,9 @@ An overview of _"avenues"_ that are influenced/affected by this work.
 
 ### _Example:_
 
-> - This resolves issue [`#123`](#) and [`#456`](#) .
+> - This resolves issue [`#123`](#) and [`#456`](#).
 > - The _login widget_ can be found on the core [`/login`](#) screen.
-> - Leverages the [`redux-form`](https://redux-form.com) implementation from pull request [`#789`](#) .
+> - Leverages the [`redux-form`](https://redux-form.com) implementation from pull request [`#789`](#).
 > - This validation enhancement will hide behind feature flag `[LOGIN.VALIDATION]`.
 
 ## Why 🤔
@@ -49,7 +49,7 @@ Bring clarity to the code with visual aids:
 
 - **Screenshots:** `cmd` + `shift` + `4` _(MacOS)_.
 - **Gifs:** [GIPHY Capture](https://giphy.com/apps/giphycapture) _(free/MacOS)_.
-- **Code Snippets:** [Carbon](<https://carbon.now.sh/?bg=rgba(157%2C180%2C201%2C1)&t=monokai&wt=none&l=application%2Fjson&ds=true&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=48px&ph=32px&ln=false&fm=Hack&fs=14px&lh=133%25&si=false&code=%257B%250A%2520%2520what%253A%2520%255B%27Prettify%27%2520%27your%27%2520%27code%27%255D%252C%250A%2520%2520with%253A%2520%257B%250A%2520%2520%2520%2520name%253A%2520%27Carbon%27%252C%250A%2520%2520%2520%2520website%253A%2520%27https%253A%252F%252Fcarbon.now.sh%252F%27%250A%2520%2520%257D%250A%257D&es=2x&wm=false>) _(free)_.
+- **Code Snippets:** [Carbon](https://carbon.now.sh/) _(free)_.
 
 If applicable, a **before** and **after** representation of your work is preferred.
 
