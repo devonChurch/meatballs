@@ -1,26 +1,19 @@
 #!/usr/bin/env node
+
 const { promisify } = require("util");
 const path = require("path");
 const fs = require("fs");
+const consola = require("consola");
 const inquirer = require("inquirer");
-
-const writeFileAsync = promisify(fs.writeFile);
 const openAsync = promisify(fs.open);
 const copyFileAsync = promisify(fs.copyFile);
-
 const cliDir = __dirname;
 const userDir = process.cwd();
-
-console.log({
-  cliDir,
-  userDir
-});
-
-// console.log("GLOBAL", global);
+const space = () => console.log("    ");
 
 const prConfig = {
   fileName: "PULL_REQUEST_TEMPLATE.md",
-  textName: "Pull request"
+  textName: "pull request"
 };
 
 const issueConfig = {
@@ -36,49 +29,40 @@ const createInquirerConfig = fileName => ({
 });
 
 const startFileCreationSequence = async ({ fileName, textName }) => {
-  // debugger;
   // Directories.
   const cliFile = path.resolve(cliDir, fileName);
   const userFile = path.resolve(userDir, fileName);
-
-  console.log({
-    cliFile,
-    userFile
-  });
 
   // Flags.
   let shouldWrite = true;
 
   // Check existence.
   try {
-    const openResult = await openAsync(userFile, "wx");
-    console.log("openResult", openResult);
+    await openAsync(userFile, "wx");
   } catch (error) {
-    console.log("error", error);
-    /* ... */
     const inquirerResult = await inquirer.prompt([
       createInquirerConfig(fileName)
     ]);
-    console.log("inquirerResult", inquirerResult);
     shouldWrite = inquirerResult.shouldWrite;
   }
 
   // Write.
   if (shouldWrite) {
-    const copyResult = copyFileAsync(cliFile, userFile);
-    console.log(`Created new ${textName} template file.`);
+    await copyFileAsync(cliFile, userFile);
+    consola.info(`Created new ${textName} template file.`);
   } else {
-    console.log(`Skiped ${textName} template file creation.`);
+    consola.info(`Skiped ${textName} template file creation.`);
   }
 
   return shouldWrite;
 };
 
 (async () => {
-  console.log("Starting sequence");
+  consola.success("Starting sequence.");
   const completed = [];
 
   for (const { fileName, textName } of [prConfig, issueConfig]) {
+    space();
     try {
       const isComplete = await startFileCreationSequence({
         fileName,
@@ -88,18 +72,21 @@ const startFileCreationSequence = async ({ fileName, textName }) => {
         completed.push(fileName);
       }
     } catch (error) {
-      console.log("BIG errir", error);
-      console.log(`Sorry, there was an error creating your ${fileName}`);
+      consola.fatal(
+        `Sorry, there was an error creating your ${fileName} template file.`
+      );
       process.exit(1);
     }
   }
 
+  space();
   if (completed.length) {
-    console.log(`Sequence complete. Created file(s):`);
-    completed.forEach(fileName => console.log(`+ ${fileName}`));
+    consola.success(`Sequence complete. Created file(s):`);
+    completed.forEach(fileName => consola.log(`> ${fileName}`));
   } else {
-    console.log("Sequence completed but created no files.");
+    consola.success("Sequence completed but created no files.");
   }
 
+  space();
   process.exit(0);
 })();
