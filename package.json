@@ -1,6 +1,6 @@
 {
   "name": "meatballs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A CLI tool to inject Github Pull Request and Issue templates into your project",
   "main": "cli.js",
   "keywords": [
